@@ -30,6 +30,6 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${VERSION} 
     - name: Push
-      run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/DevonOsh/index.json
+      run: dotnet nuget push ULFTestLogger.${VERSION}.nupkg --source https://nuget.pkg.github.com/DevonOsh/index.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
