@@ -24,12 +24,12 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release /p:Version=${VERSION}
+      run: dotnet build --configuration Release
     - name: Test
-      run: dotnet test --no-build --configuration Release /p:Version=${VERSION}
+      run: dotnet test --no-build --configuration Release
     - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${VERSION} 
+      run: dotnet pack --configuration Release
     - name: Push
-      run: dotnet nuget push ULFTestLogger.${VERSION}.nupkg --source https://nuget.pkg.github.com/DevonOsh/index.json
+      run: dotnet nuget push AppLogger/bin/Release/ULFTestLogger.${VERSION}.nupkg --source https://nuget.pkg.github.com/DevonOsh/index.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
