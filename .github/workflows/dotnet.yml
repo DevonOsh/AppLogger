@@ -26,25 +26,9 @@ jobs:
       run: dotnet build --configuration Release
     - name: Pack
       run: dotnet pack --configuration -p:Version=${VERSION} -c Release
-    - name: Upload package to artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: nugetPackage
-        path: bin/Release/
 
-  push:
-
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-    - name: Download package artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: nugetPackage
     - name: Prep push
       run: dotnet nuget add source --username DevonOsh --password ${{ secrets.ACCESS_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DevonOsh/index.json"
     - name: Push
-      run: dotnet nuget push nugetPackage/*.nupkg --source "github" --api-key ${GITHUB_TOKEN}
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      run: dotnet nuget push AppLogger/bin/Release/ULFTestLogger.${VERSION}.nupkg --source "github" --api-key ${{ secrets.ACCESS_TOKEN }}
+
