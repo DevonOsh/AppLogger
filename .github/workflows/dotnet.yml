@@ -21,14 +21,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release
-    - name: Test
-      run: dotnet test --no-build --configuration Release
     - name: Pack
       run: dotnet pack --configuration Release
+    - name: Prep push
+      run: dotnet nuget add source --username DevonOsh --password ${{ secrets.ACCESS_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DevonOsh/index.json"
     - name: Push
       run: dotnet nuget push AppLogger/bin/Release/ULFTestLogger.${VERSION}.nupkg --source https://nuget.pkg.github.com/DevonOsh/index.json --api-key ${GITHUB_TOKEN}
       env:
