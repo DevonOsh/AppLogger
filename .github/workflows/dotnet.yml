@@ -28,7 +28,7 @@ jobs:
       run: dotnet pack --configuration -p:Version=${VERSION} -c Release
 
     - name: Prep push
-      run: dotnet nuget add source --username DevonOsh --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DevonOsh/index.json"
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DevonOsh/index.json"
     - name: Push
       run: dotnet nuget push AppLogger/bin/Release/ULFTestLogger.${VERSION}.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
 
